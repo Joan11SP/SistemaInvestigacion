@@ -2,7 +2,7 @@ const {Router} = require('express');
 //controller of carrers
 const {saveCarrer,searchCarrer} = require('../Controllers/controller_carrer');
 //controller of person
-const {savePeople,searchPeople,updatePerson,deletePerson} = require('../Controllers/controller_people');
+const {savePeople,searchPeople,updatePerson,deletePerson,login} = require('../Controllers/controller_people');
 //controller of group investigation
 const {saveGroup,searchGroup,updateGroup,deleteGroup} = require('../Controllers/controller_groupInvestigation');
 //controller of project investigation
@@ -18,6 +18,7 @@ router.post('/newPerson',savePeople);
 router.get('/allPeople',searchPeople);
 router.post('/updatePerson',updatePerson);
 router.post('/deletePerson',deletePerson);
+router.post('/login',login)
 
 //Routes to group Investigation
 router.post('/newGroupInvestigacion',saveGroup);

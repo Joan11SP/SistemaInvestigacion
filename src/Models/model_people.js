@@ -11,7 +11,8 @@ const peopleSchema = new Schema({
     nivel_educacion:{type:String},
     id_carrer:{type:String}, 
     linea_investigacion:{type:String},
-    orcid:{type:String}
+    orcid:{type:String},
+    password:{type:String}
 });
 
 const people = model('personas',peopleSchema);
