@@ -1,5 +1,5 @@
 const group = require('../Models/model_groupInvestigation');
-const moment = require('moment')
+const project = require('../Models/model_projectInvestigation')
 
 const saveGroup = async (req, res) => {
     const { name, create_date, menbers, linea_investigacion, project_generados } = req.body
@@ -9,7 +9,7 @@ const saveGroup = async (req, res) => {
         });
 
         await gropuInvestigation.save();
-        res.status(200).json({ mensaje: "guardado" });
+        res.status(200).json({mensaje:"guardado"});
     } catch (err) {
         console.log(err)
     }
@@ -24,8 +24,21 @@ const updateGroup = async (req, res) => {
     res.status(200).json(updated);
 }
 const searchGroup = async (req, res) => {
+    const { _id } = req.body
+    const projects = []
     try {
-        const search = await group.find({});
+        const proyecto = await project.find({ id_group: _id });
+        const search = await group.find({ _id: _id });
+        proyecto.forEach(data => {
+            search.forEach(data2 => {
+                if (data.id_group == data2._id) {
+                    projects.push(data.name);
+                    data2.project_generados = projects
+                }
+            })
+        });
+
+
         res.status(200).json(search)
     } catch (err) {
         console.log(err)
@@ -35,15 +48,24 @@ const deleteGroup = async (req, res) => {
     try {
         await group.remove({ _id: req.body._id })
         res.status(200).json({ delet: "eliminado" })
-    }catch(err){
+    } catch (err) {
         console.log(err)
     }
 }
+const allGroup = async (req, res) => {
 
+    try {
+        const search = await group.find();
+        res.status(200).json(search)
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 module.exports = {
     saveGroup,
     updateGroup,
     searchGroup,
-    deleteGroup
+    deleteGroup,
+    allGroup
 }

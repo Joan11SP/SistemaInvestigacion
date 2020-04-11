@@ -1,0 +1,14 @@
+const {Schema,model} = require('mongoose');
+
+const seguimientoSchema = new Schema({
+    id_project:{type:String,trim:true},
+    month:{type:Date,trim:true},
+    qualification:{type:String,trim:true},
+    result_reach:{type:Array,trim:true},
+    observacion:{type:Array,trim:true},
+    novedades:{type:Array,trim:true},
+    percentage:{type:Number,trim:true}
+});
+const seguimiento = model('seguimientos',seguimientoSchema);
+
+module.exports = seguimiento;

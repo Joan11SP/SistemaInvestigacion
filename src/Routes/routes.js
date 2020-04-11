@@ -4,9 +4,12 @@ const {saveCarrer,searchCarrer} = require('../Controllers/controller_carrer');
 //controller of person
 const {savePeople,searchPeople,updatePerson,deletePerson,login} = require('../Controllers/controller_people');
 //controller of group investigation
-const {saveGroup,searchGroup,updateGroup,deleteGroup} = require('../Controllers/controller_groupInvestigation');
+const {saveGroup,searchGroup,updateGroup,deleteGroup,allGroup} = require('../Controllers/controller_groupInvestigation');
 //controller of project investigation
 const {saveProject,searchProject,searchOneProject,deleteProyect,updateProyect} = require('../Controllers/controller_projectInvestigation')
+//controller of seguimientos
+const {saveSeguimiento,allSeguimiento,deleteSeguimiento} = require('../Controllers/controller_seguimientos');
+
 const router = Router();
 
 // Routes to carrers
@@ -21,10 +24,12 @@ router.post('/deletePerson',deletePerson);
 router.post('/login',login)
 
 //Routes to group Investigation
-router.post('/newGroupInvestigacion',saveGroup);
+router.post('/newGroupInvestigation',saveGroup);
 router.post('/updateGroupInvestigacion',updateGroup);
-router.get('/allGroupInvestigation',searchGroup);
+router.post('/aGroupInvestigation',searchGroup);
 router.post('/deleteGroupInvestigation',deleteGroup);
+router.get('/allGroupInvestigation',allGroup)
+
 
 //Routes to project Investigation
 router.post('/saveProjectInvestigation',saveProject);
@@ -32,5 +37,11 @@ router.get('/allProjectInvestigation',searchProject);
 router.post('/oneProjectInvestigation',searchOneProject);
 router.post('/deleteProjectInvestigation',deleteProyect);
 router.post('/updateProjectInvestigation',updateProyect);
+
+//Routes to seguimientos
+router.post('/newSeguimientos',saveSeguimiento);
+router.get('/allSeguimientos',allSeguimiento);
+router.post('/deleteSeguimientos',deleteSeguimiento);
+
 module.exports=router;
 

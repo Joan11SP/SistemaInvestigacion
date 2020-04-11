@@ -1,9 +1,8 @@
 const {Schema,model} = require('mongoose');
 
 const projectSchema = new Schema({
-    nombre:{type:String,trim:true},
+    name:{type:String,trim:true},
     personal_involucrado:{type:Array,trim:true},
-    grupo_investigacion:{type:String,trim:true},
     fecha_inicio:{type:Date,trim:true},
     fecha_fin:{type:Date,trim:true},
     linea_investigacion:{type:String,trim:true},
@@ -15,7 +14,8 @@ const projectSchema = new Schema({
     presupuesto:{type:String,trim:true},
     cronograma:{type:String,trim:true},
     articulos_generados:{type:Array,trim:true},
-    estado_proyecto:{type:String,trim:true}
+    estado_proyecto:{type:String,trim:true},
+    id_group:{type:String,trim:true}   
 
 })
 

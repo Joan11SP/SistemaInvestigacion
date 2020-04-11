@@ -1,15 +1,15 @@
 const project = require('../Models/model_projectInvestigation');
 
 const saveProject = async (req, res) => {
-    const { personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+    const { name,personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-        articulos_generados, estado_proyecto } = req.body
+        articulos_generados, estado_proyecto,id_group } = req.body
 
     try{
         const save = await new project({
-            personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+            name,personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
             introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-            articulos_generados, estado_proyecto
+            articulos_generados, estado_proyecto,id_group
         });    
         save.save();
         res.status(200).json({mensaje:"guardado"});
@@ -34,12 +34,12 @@ const searchOneProject = async (req,res)=>{
     res.status(200).json(search);
 } 
 const updateProyect = async (req,res)=>{
-    const { personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+    const { name,personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
         articulos_generados, estado_proyecto } = req.body
 
     const update = await project.updateOne({_id:req.body._id},{$set:{
-        personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+        name,personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
         articulos_generados, estado_proyecto
     }})
