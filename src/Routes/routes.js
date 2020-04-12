@@ -11,7 +11,7 @@ const {saveProject,searchProject,searchOneProject,deleteProyect,updateProyect} =
 const {saveSeguimiento,allSeguimiento,deleteSeguimiento} = require('../Controllers/controller_seguimientos');
 
 //controller of Article
-const {saveArticulo,allArticles} =require('../Controllers/controller_articulo');
+const {saveArticulo,allArticles,updateArticles,deleteArticle} =require('../Controllers/controller_articulo');
 const router = Router();
 
 // Routes to carrers
@@ -48,6 +48,8 @@ router.post('/deleteSeguimientos',deleteSeguimiento);
 //Routes to Article
 router.post('/newArticle',saveArticulo);
 router.get('/allArticle',allArticles);
+router.post('/updateArticle',updateArticles);
+router.post('/deleteArticle',deleteArticle);
 
 module.exports=router;
 
