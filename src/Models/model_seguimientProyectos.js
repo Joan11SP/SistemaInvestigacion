@@ -7,7 +7,8 @@ const seguimientoSchema = new Schema({
     result_reach:{type:Array,trim:true},
     observacion:{type:Array,trim:true},
     novedades:{type:Array,trim:true},
-    percentage:{type:Number,trim:true}
+    percentage:{type:Number,trim:true},
+    status:{type:Number,default:1}
 });
 const seguimiento = model('seguimientos',seguimientoSchema);
 

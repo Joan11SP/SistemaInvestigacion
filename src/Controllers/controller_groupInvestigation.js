@@ -27,7 +27,7 @@ const searchGroup = async (req, res) => {
     const { _id } = req.body
     const projects = []
     try {
-        const proyecto = await project.find({ id_group: _id });
+        const proyecto = await project.find({ id_group: _id },{status: { $in: [1] } });
         const search = await group.find({ _id: _id });
         proyecto.forEach(data => {
             search.forEach(data2 => {
@@ -46,7 +46,9 @@ const searchGroup = async (req, res) => {
 }
 const deleteGroup = async (req, res) => {
     try {
-        await group.remove({ _id: req.body._id })
+        await group.remove({ _id: req.body._id }, {
+            $set: {status:0}
+        })
         res.status(200).json({ delet: "eliminado" })
     } catch (err) {
         console.log(err)
@@ -55,7 +57,7 @@ const deleteGroup = async (req, res) => {
 const allGroup = async (req, res) => {
 
     try {
-        const search = await group.find();
+        const search = await group.find({status: { $in: [1] } });
         res.status(200).json(search)
     } catch (err) {
         console.log(err)

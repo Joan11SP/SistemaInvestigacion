@@ -15,7 +15,8 @@ const projectSchema = new Schema({
     cronograma:{type:String,trim:true},
     articulos_generados:{type:Array,trim:true},
     estado_proyecto:{type:String,trim:true},
-    id_group:{type:String,trim:true}   
+    id_group:{type:String,trim:true},
+    status:{type:Number,default:1}
 
 })
 

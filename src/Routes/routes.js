@@ -12,6 +12,15 @@ const {saveSeguimiento,allSeguimiento,deleteSeguimiento} = require('../Controlle
 
 //controller of Article
 const {saveArticulo,allArticles,updateArticles,deleteArticle} =require('../Controllers/controller_articulo');
+
+//controller of book
+const {saveBook,allBooks,updateBook,deleteBook} = require('../Controllers/controller_book');
+
+//controller of convenio
+const {allConvenio,deleteConvenio,saveConvenio,updateConvenio} = require('../Controllers/controller_convenio'); 
+
+//controller of capacitacion
+const {allCapacitacion,deleteCapacitacion,saveCapacitacion,updateCapacitacion} = require('../Controllers/controller_capacitacion');
 const router = Router();
 
 // Routes to carrers
@@ -50,6 +59,25 @@ router.post('/newArticle',saveArticulo);
 router.get('/allArticle',allArticles);
 router.post('/updateArticle',updateArticles);
 router.post('/deleteArticle',deleteArticle);
+
+//Routes to book
+router.post('/newBook',saveBook);
+router.get('/allBook',allBooks);
+router.post('/updateBook',updateBook);
+router.post('/deleteBook',deleteBook);
+
+//Routes to convenio
+router.post('/newConvenio',saveConvenio);
+router.post('/updateConvenio',updateConvenio);
+router.post('/deleteConvenio',deleteConvenio);
+router.get('/allConvenio',allConvenio);
+
+//Routes to capacitacion
+router.post('/newCapacitacion',saveCapacitacion);
+router.post('/updateCapacitacion',updateCapacitacion);
+router.post('/deleteCapacitacion',deleteCapacitacion);
+router.get('/allCapacitacion',allCapacitacion);
+
 
 module.exports=router;
 

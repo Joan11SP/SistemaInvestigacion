@@ -17,7 +17,8 @@ const articuloSchema = new Schema({
     isbn:{type:String,trim:true},
     link:{type:String,trim:true},
     revista:{type:String,trim:true},
-    quartile:{type:String,trim:true}
+    quartile:{type:String,trim:true},
+    status:{type:Number,default:1}
 });
 const articulo = model('articulos',articuloSchema);
 

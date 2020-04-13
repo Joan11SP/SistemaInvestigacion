@@ -5,7 +5,8 @@ const groupInvestigationSchema = new Schema({
     create_date:{type:Date},
     menbers:{type:Array},
     linea_investigacion:{type:String},
-    project_generados:{type:Array}
+    project_generados:{type:Array},
+    status:{type:Number,default:1}
 
 });
 const groupInvestigation = model('group_investigations',groupInvestigationSchema);

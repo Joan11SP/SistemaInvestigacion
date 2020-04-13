@@ -24,7 +24,7 @@ const savePeople = async (req, res) => {
 }
 const searchPeople = async (req, res) => {
     try {
-        const person = await people.find({})
+        const person = await people.find({status: { $in: [1] } })
         res.status(200).json(person);
     } catch (err) {
         console.log(err)
@@ -58,14 +58,16 @@ const updatePerson = async (req, res) => {
 // delete a person 
 const deletePerson = async (req, res) => {
     try {
-        const deleted = await people.remove({ _id: req.body._id })
+        const deleted = await people.remove({ _id: req.body._id }, {
+            $set: {status:0}
+        })
         res.status(200).json(deleted)
     } catch (err) {
         console.error(err)
     }
 }
 const login = async (req,res)=>{
-    const login = await people.find({dni:req.body.dni,password:req.body.password},{dni:1,names:1})
+    const login = await people.find({dni:req.body.dni,password:req.body.password},{dni:1,names:1},{status: { $in: [1] } })
     if(login.length==1){
         res.status(200).json(login)
     }

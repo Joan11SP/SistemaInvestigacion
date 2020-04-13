@@ -13,7 +13,7 @@ const saveArticulo = async (req, res) => {
 }
 
 const allArticles = async (req, res) => {
-    const all = await articulo.find({});
+    const all = await articulo.find({status: { $in: [1] } });
     res.status(200).json(all);
 }
 
@@ -32,10 +32,11 @@ const updateArticles = async (req, res) => {
 }
 
 const deleteArticle= async (req,res)=>{
-    const del = await articulo.remove({_id:req.body._id});
-    if(del.deletedCount == 1){
+    const del = await articulo.remove({_id:req.body._id}, {
+        $set: {status:0}
+    });
         res.status(200).json({mensaje:1})
-    }
+    
 }
 module.exports = {
     saveArticulo,

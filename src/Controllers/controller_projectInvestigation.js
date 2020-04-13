@@ -18,7 +18,7 @@ const saveProject = async (req, res) => {
     }
 }
 const searchProject = async (req, res) => {
-    const search = await project.find({});
+    const search = await project.find({status: { $in: [1] } });
     search.forEach(data => {
         if (data.estado_proyecto == "E") {
             data.estado_proyecto = "Ejecutandose"
@@ -30,8 +30,8 @@ const searchProject = async (req, res) => {
     res.status(200).json(search);
 }
 const searchOneProject = async (req, res) => {
-    const search = await project.find({ _id: req.body._id });
-    const articulo = await article.find({ id_project: req.body._id });
+    const search = await project.find({ _id: req.body._id },{status: { $in: [1] } });
+    const articulo = await article.find({ id_project: req.body._id },{status: { $in: [1] }});
     const generados = []
     search.forEach(data => {
         articulo.forEach(data2 => {
@@ -59,7 +59,9 @@ const updateProyect = async (req, res) => {
     res.status(200).json(update);
 }
 const deleteProyect = async (req, res) => {
-    const dele = await project.remove({ _id: req.body._id });
+    const dele = await project.remove({ _id: req.body._id }, {
+        $set: {status:0}
+    });
     res.status(200).json(dele)
 }
 
