@@ -3,7 +3,7 @@ const project = require('../Models/model_projectInvestigation');
 
 const saveSeguimiento = async (req, res) => {
     const { id_project, month, qualification, observacion, novedades, percentage } = req.body
-    const proyecto = await project.find({ _id: id_project });
+    const proyecto = await project.find({ _id: id_project, status: { $in: [1] } });
     const result = []
     proyecto.forEach(data => {
         if (data._id == id_project) {
@@ -18,7 +18,7 @@ const saveSeguimiento = async (req, res) => {
                         percentage
                     });
                     save.save();
-                    res.status(200).json({mensaje:"Guardado"});
+                    res.status(200).json({ mensaje: "Guardado" });
                 } catch (err) {
                     console.error(err);
                 }
@@ -27,15 +27,27 @@ const saveSeguimiento = async (req, res) => {
     })
 }
 const allSeguimiento = async (req, res) => {
-    const all = await seguimineto.find({status: { $in: [1] } })
-    res.status(200).json(all)
+    const one = await seguimineto.find({ status: { $in: [1] } });
+    const pro = await project.find({  status: { $in: [1] } });
+    one.forEach(data => {
+        pro.forEach(data2 => {
+            if (data.id_project == data2._id) {
+                data.name_projet = data2.name
+            
+            }
+        })
+    })
+    
+    res.status(200).json(one)
 }
+
+
 const deleteSeguimiento = async (req, res) => {
     const del = await seguimineto.updateOne({ _id: req.body._id }, {
-        $set: {status:0}
+        $set: { status: 0 }
     });
-        res.status(200).json({ mensaje: "eliminado" });
-    
+    res.status(200).json({ mensaje: "eliminado" });
+
 }
 
 module.exports = {

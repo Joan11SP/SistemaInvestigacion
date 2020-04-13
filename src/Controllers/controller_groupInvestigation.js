@@ -27,7 +27,7 @@ const searchGroup = async (req, res) => {
     const { _id } = req.body
     const projects = []
     try {
-        const proyecto = await project.find({ id_group: _id },{status: { $in: [1] } });
+        const proyecto = await project.find({ id_group: _id ,status: { $in: [1] } });
         const search = await group.find({ _id: _id });
         proyecto.forEach(data => {
             search.forEach(data2 => {

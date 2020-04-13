@@ -1,13 +1,13 @@
 const project = require('../Models/model_projectInvestigation');
 const article = require('../Models/model_articulos');
 const saveProject = async (req, res) => {
-    const { name, personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+    const { name, personal_involucrado, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
         articulos_generados, estado_proyecto, id_group } = req.body
 
     try {
         const save = await new project({
-            name, personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+            name, personal_involucrado, fecha_inicio, fecha_fin, linea_investigacion,
             introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
             articulos_generados, estado_proyecto, id_group
         });
@@ -30,8 +30,8 @@ const searchProject = async (req, res) => {
     res.status(200).json(search);
 }
 const searchOneProject = async (req, res) => {
-    const search = await project.find({ _id: req.body._id },{status: { $in: [1] } });
-    const articulo = await article.find({ id_project: req.body._id },{status: { $in: [1] }});
+    const search = await project.find({ _id: req.body._id ,status: { $in: [1] } });
+    const articulo = await article.find({ id_project: req.body._id,status: { $in: [1] }});
     const generados = []
     search.forEach(data => {
         articulo.forEach(data2 => {
@@ -45,13 +45,13 @@ const searchOneProject = async (req, res) => {
 
 }
 const updateProyect = async (req, res) => {
-    const { name, personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+    const { name, personal_involucrado,id_group, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
         articulos_generados, estado_proyecto } = req.body
 
     const update = await project.updateOne({ _id: req.body._id }, {
         $set: {
-            name, personal_involucrado, grupo_investigacion, fecha_inicio, fecha_fin, linea_investigacion,
+            name, personal_involucrado, id_group, fecha_inicio, fecha_fin, linea_investigacion,
             introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
             articulos_generados, estado_proyecto
         }

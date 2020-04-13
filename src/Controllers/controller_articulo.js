@@ -32,7 +32,7 @@ const updateArticles = async (req, res) => {
 }
 
 const deleteArticle= async (req,res)=>{
-    const del = await articulo.remove({_id:req.body._id}, {
+    const del = await articulo.updateOne({_id:req.body._id}, {
         $set: {status:0}
     });
         res.status(200).json({mensaje:1})
