@@ -38,9 +38,14 @@ const deleteArticle= async (req,res)=>{
         res.status(200).json({mensaje:1})
     
 }
+const countArticles = async (req,res)=>{
+    const count = await articulo.find({status: { $in: [1] } }).limit(6)
+    res.status(200).json(count)
+}
 module.exports = {
     saveArticulo,
     allArticles,
     updateArticles,
-    deleteArticle
+    deleteArticle,
+    countArticles
 }

@@ -34,9 +34,14 @@ const deleteBook = async (req,res)=>{
     });
     res.status(200).json(del)
 }
+const countBook = async (req,res)=>{
+    const count = await book.find({status: { $in: [1] } }).limit(3)
+    res.status(200).json(count)
+}
 module.exports = {
     saveBook,
     allBooks,
     updateBook,
-    deleteBook
+    deleteBook,
+    countBook
 }

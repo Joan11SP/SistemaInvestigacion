@@ -41,10 +41,15 @@ const allConvenio = async (req,res)=>{
         console.errore(err)
     }
 }
+const countConvenio = async (req,res)=>{
+    const count = await convenio.find({status: { $in: [1] } }).limit(10)
+    res.status(200).json(count)
+}
 
 module.exports={
     allConvenio,
     saveConvenio,
     updateConvenio,
-    deleteConvenio
+    deleteConvenio,
+    countConvenio
 }

@@ -13,6 +13,8 @@ const peopleSchema = new Schema({
     linea_investigacion:{type:String},
     orcid:{type:String},
     password:{type:String},
+    student_teacher:{type:String,trim:true},
+    name_carrer:{type:String,trim:true},
     status:{type:Number,default:1}
 });
 

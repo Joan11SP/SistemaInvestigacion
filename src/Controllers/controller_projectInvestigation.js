@@ -48,7 +48,8 @@ const updateProyect = async (req, res) => {
     const { name, personal_involucrado,id_group, fecha_inicio, fecha_fin, linea_investigacion,
         introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
         articulos_generados, estado_proyecto } = req.body
-
+    
+        
     const update = await project.updateOne({ _id: req.body._id }, {
         $set: {
             name, personal_involucrado, id_group, fecha_inicio, fecha_fin, linea_investigacion,
@@ -59,10 +60,17 @@ const updateProyect = async (req, res) => {
     res.status(200).json(update);
 }
 const deleteProyect = async (req, res) => {
-    const dele = await project.remove({ _id: req.body._id }, {
+    const dele = await project.updateOne({ _id: req.body._id }, {
         $set: {status:0}
     });
     res.status(200).json(dele)
+}
+const countProject = async (req,res)=>{
+    const ejecutandose = await project.find({estado_proyecto: { $in: ["E"] },status: { $in: [1] } }).count()
+    const finalizado = await project.find({estado_proyecto: { $in: ["F"] },status: { $in: [1] } }).count()
+    const porAprobar = await project.find({estado_proyecto: { $in: ["PA"] },status: { $in: [1] } }).count()
+    const aprobado = await project.find({estado_proyecto: { $in: ["A"] },status: { $in: [1] } }).count()
+    res.status(200).json({ejecutandose,finalizado,porAprobar,aprobado});
 }
 
 module.exports = {
@@ -70,5 +78,6 @@ module.exports = {
     searchProject,
     searchOneProject,
     updateProyect,
-    deleteProyect
+    deleteProyect,
+    countProject
 }               

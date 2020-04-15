@@ -46,7 +46,7 @@ const searchGroup = async (req, res) => {
 }
 const deleteGroup = async (req, res) => {
     try {
-        await group.remove({ _id: req.body._id }, {
+        await group.updateOne({ _id: req.body._id }, {
             $set: {status:0}
         })
         res.status(200).json({ delet: "eliminado" })
@@ -63,11 +63,16 @@ const allGroup = async (req, res) => {
         console.log(err)
     }
 }
+const countGropu = async (req,res)=>{
+    const count = await group.find({status: { $in: [1] } }).count(5)
+    res.status(200).json(count)
+}
 
 module.exports = {
     saveGroup,
     updateGroup,
     searchGroup,
     deleteGroup,
-    allGroup
+    allGroup,
+    countGropu
 }
