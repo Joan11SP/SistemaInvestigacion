@@ -42,7 +42,7 @@ const allConvenio = async (req,res)=>{
     }
 }
 const countConvenio = async (req,res)=>{
-    const count = await convenio.find({status: { $in: [1] } }).limit(10)
+    const count = await convenio.find({status: { $in: [1] } }).count()
     res.status(200).json(count)
 }
 

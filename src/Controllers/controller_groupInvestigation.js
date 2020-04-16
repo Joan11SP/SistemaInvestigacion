@@ -64,7 +64,7 @@ const allGroup = async (req, res) => {
     }
 }
 const countGropu = async (req,res)=>{
-    const count = await group.find({status: { $in: [1] } }).count(5)
+    const count = await group.find({status: { $in: [1] } }).count()
     res.status(200).json(count)
 }
 

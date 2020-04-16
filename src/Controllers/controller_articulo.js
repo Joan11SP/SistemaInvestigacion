@@ -39,7 +39,7 @@ const deleteArticle= async (req,res)=>{
     
 }
 const countArticles = async (req,res)=>{
-    const count = await articulo.find({status: { $in: [1] } }).limit(6)
+    const count = await articulo.find({status: { $in: [1] } }).count()
     res.status(200).json(count)
 }
 module.exports = {

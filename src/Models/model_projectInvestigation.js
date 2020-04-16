@@ -11,7 +11,7 @@ const projectSchema = new Schema({
     objetivos:{type:Array,trim:true},
     materiales:{type:String,trim:true},
     resultados_esperados:{type:Array,trim:true},
-    presupuesto:{type:String,trim:true},
+    presupuesto:{type:Number,trim:true},
     cronograma:{type:String,trim:true},
     articulos_generados:{type:Array,trim:true},
     estado_proyecto:{type:String,trim:true},

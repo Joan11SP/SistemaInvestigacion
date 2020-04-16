@@ -6,7 +6,9 @@ const capacitacionSchema = new Schema({
     instructor:{type:String,trim:true},
     fecha_inicio:{type:Date,trim:true},
     fecha_fin:{type:Date,trim:true},
-    name:{type:String,trim:true},    
+    name:{type:String,trim:true},
+    institucion_organiza:{type:String,trim:true},
+    nhoras:{type:Number,trim:true},      
     status:{type:Number,default:1}
 });
 
