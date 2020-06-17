@@ -8,6 +8,7 @@ const seguimientoSchema = new Schema({
     observacion:{type:Array,trim:true},
     novedades:{type:Array,trim:true},
     name_projet:{type:String,trim:true},
+    percentage:{type:Array},
     status:{type:Number,default:1}
 });
 const seguimiento = model('seguimientos',seguimientoSchema);

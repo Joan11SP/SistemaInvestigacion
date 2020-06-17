@@ -57,7 +57,7 @@ router.get('/allSeguimientos',allSeguimiento);
 router.post('/deleteSeguimientos',deleteSeguimiento);
 
 //Routes to Article
-router.post('/newArticle',saveArticulo);
+//router.post('/newArticle',saveArticulo);
 router.get('/allArticle',allArticles);
 router.post('/updateArticle',updateArticles);
 router.post('/deleteArticle',deleteArticle);
