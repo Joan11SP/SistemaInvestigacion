@@ -2,7 +2,7 @@ const {Router} = require('express');
 //controller of carrers
 const {saveCarrer,searchCarrer} = require('../Controllers/controller_carrer');
 //controller of person
-const {savePeople,searchPeople,updatePerson,deletePerson,login} = require('../Controllers/controller_people');
+const {savePeople,searchPeople,updatePerson,deletePerson,login, exportsPerson} = require('../Controllers/controller_people');
 //controller of group investigation
 const {saveGroup,searchGroup,updateGroup,deleteGroup,allGroup,countGropu} = require('../Controllers/controller_groupInvestigation');
 //controller of project investigation
@@ -33,6 +33,7 @@ router.get('/allPeople',searchPeople);
 router.post('/updatePerson',updatePerson);
 router.post('/deletePerson',deletePerson);
 router.post('/login',login)
+router.get('/exportToExcel',exportsPerson)
 
 //Routes to group Investigation
 router.post('/newGroupInvestigation',saveGroup);
