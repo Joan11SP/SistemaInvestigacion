@@ -66,7 +66,7 @@ const updatePerson = async (req, res) => {
     gender,
     phone,
     nroHorasDedicacionSemanal,
-    itulo,
+    titulo,
     nivel_educacion,
     id_carrer,
     linea_investigacion,
