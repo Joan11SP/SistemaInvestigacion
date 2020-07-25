@@ -2,24 +2,20 @@ const group = require('../Models/model_groupInvestigation');
 const project = require('../Models/model_projectInvestigation')
 
 const saveGroup = async (req, res) => {
-    const { name, create_date, menbers, linea_investigacion, project_generados } = req.body
     try {
-        const gropuInvestigation = new group({
-            name, create_date, menbers, linea_investigacion, project_generados
-        });
+        const gropuInvestigation = new group(req.body);
 
-        await gropuInvestigation.save();
-        res.status(200).json({mensaje:"guardado"});
+        const is_saved = await gropuInvestigation.save();
+        is_saved !=null ? 
+            res.status(200).json({mensaje:"guardado"})
+        :   res.status(200).json({mensaje:"no_guardado"})
     } catch (err) {
         console.log(err)
     }
 }
 const updateGroup = async (req, res) => {
-    const { _id, name, create_date, menbers, linea_investigacion, project_generados } = req.body
-    const updated = await group.updateOne({ _id: _id }, {
-        $set: {
-            name, create_date, menbers, linea_investigacion, project_generados
-        }
+    const updated = await group.updateOne({ _id: req.body._id }, {
+        $set: req.body
     })
     res.status(200).json(updated);
 }

@@ -1,18 +1,16 @@
 const capacitacion = require('../Models/model_capacitacion');
 
 const saveCapacitacion = async (req,res)=>{
-    const {persona,tipo,instructor,fecha_inicio,fecha_fin,name,institucion_organiza,nhoras} =req.body
-    const save = await new capacitacion({
-        persona,tipo,instructor,fecha_inicio,fecha_fin,name,institucion_organiza,nhoras
-    });
-    save.save();
-    res.status(200).json(save);
+    const save = await new capacitacion(req.body);
+    const i_saved = await save.save();
+    i_saved !=null ? 
+        res.status(200).json(save)
+    : res.status(200).json()
 }
 
 const updateCapacitacion = async (req,res)=>{
-    const {_id,persona,tipo,instructor,fecha_inicio,fecha_fin,name,institucion_organiza,nhoras} =req.body
-    const update = await capacitacion.updateOne({_id:_id},{
-        $set:{persona,tipo,instructor,fecha_inicio,fecha_fin,name,institucion_organiza,nhoras}
+    const update = await capacitacion.updateOne({_id:req.body._id},{
+        $set:req.body
     });
     res.status(200).json(update);
 }

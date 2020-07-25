@@ -1,12 +1,17 @@
 const {Router} = require('express');
+
 //controller of carrers
 const {saveCarrer,searchCarrer} = require('../Controllers/controller_carrer');
+
 //controller of person
 const {savePeople,searchPeople,updatePerson,deletePerson,login, exportsPerson} = require('../Controllers/controller_people');
+
 //controller of group investigation
 const {saveGroup,searchGroup,updateGroup,deleteGroup,allGroup,countGropu} = require('../Controllers/controller_groupInvestigation');
+
 //controller of project investigation
 const {saveProject,searchProject,searchOneProject,deleteProyect,updateProyect,countProject} = require('../Controllers/controller_projectInvestigation')
+
 //controller of seguimientos
 const {saveSeguimiento,allSeguimiento,deleteSeguimiento} = require('../Controllers/controller_seguimientos');
 

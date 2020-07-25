@@ -5,39 +5,9 @@ const brycpt = require("bcrypt");
 
 var BCRYPT_SALT_ROUNDS = 12;
 const savePeople = async (req, res) => {
-  var {
-    dni,
-    names,
-    email,
-    gender,
-    phone,
-    nroHorasDedicacionSemanal,
-    titulo,
-    nivel_educacion,
-    id_carrer,
-    linea_investigacion,
-    orcid,
-    password,
-    student_teacher,
-  } = req.body;
-
   //password = await brycpt.hash(password, BCRYPT_SALT_ROUNDS);
-  const person = new people({
-    dni,
-    names,
-    email,
-    gender,
-    phone,
-    nroHorasDedicacionSemanal,
-    titulo,
-    nivel_educacion,
-    id_carrer,
-    linea_investigacion,
-    orcid,
-    password,
-    student_teacher,
-  });
-  await validarDni(dni, person, res);
+  const person = new people(req.body);
+  await validarDni(req.body.dni, person, res);
 };
 const searchPeople = async (req, res) => {
   try {
@@ -58,42 +28,11 @@ const searchPeople = async (req, res) => {
 
 //Update a person
 const updatePerson = async (req, res) => {
-  const {
-    _id,
-    dni,
-    names,
-    email,
-    gender,
-    phone,
-    nroHorasDedicacionSemanal,
-    titulo,
-    nivel_educacion,
-    id_carrer,
-    linea_investigacion,
-    orcid,
-    password,
-    student_teacher,
-  } = req.body;
-
-  if (validar(dni) === true) {
+  if (validar(req.body.dni) === true) {
     const update = await people.updateOne(
-      { _id: _id },
+      { _id: req.body._id },
       {
-        $set: {
-          dni,
-          names,
-          email,
-          gender,
-          phone,
-          nroHorasDedicacionSemanal,
-          titulo,
-          nivel_educacion,
-          id_carrer,
-          linea_investigacion,
-          orcid,
-          password,
-          student_teacher,
-        },
+        $set: req.body,
       }
     );
     if (update.nModified == 1) {
@@ -135,22 +74,23 @@ const login = async (req, res) => {
       }
     });
   });*/
-  const login = await people.find({dni:req.body.dni,password:req.body.password,status: { $in: [1] } },{dni:1,names:1})
-    if(login.length==1){
-        res.status(200).json(login)
-    }
-    else{
-        res.json({mensaje:"no_existe"});
-    }
+  const login = await people.find(
+    { dni: req.body.dni, password: req.body.password, status: { $in: [1] } },
+    { dni: 1, names: 1 }
+  );
+  if (login.length == 1) {
+    res.status(200).json(login);
+  } else {
+    res.json({ mensaje: "no_existe" });
+  }
 };
 
 //validar si ya esta creada la persona
 const validarDni = async (dni, person, res) => {
-  const persons = await people.find({ dni: dni });
+  const persons = await people.find({ dni: dni }, { status: { $in: [1] } });
   if (validar(dni) === true) {
     if (persons.length == 0) {
       await person.save();
-      console.log(person);
       res.json({ mensaje: "guardado" });
     } else {
       res.json({ mensaje: "cedula_yaRegistrada" });
@@ -169,9 +109,9 @@ const exportsPerson = async (req, res) => {
   var docente = "Docente";
   var estudiante = "Estudiante";
   var data_person = [];
-  var exports=[]
+  var exports = [];
   await personas.forEach((data) => {
-     carrers.forEach((data2) => {
+    carrers.forEach((data2) => {
       if (data.student_teacher == "D") {
         data.student_teacher = docente;
       } else if (data.student_teacher == "E") {
@@ -181,34 +121,32 @@ const exportsPerson = async (req, res) => {
         data.name_carrer = data2.nameCarrer;
       }
     });
-    
-  data_person.push(data); 
-  
+
+    data_person.push(data);
   });
-  console.log(data_person)
   try {
     for (const element of data_person) {
       // const element = data_person[i];
-        exports.push({
-          'Cédula': element.dni,
-          'Nombres ': element.names,
-          'Correo ': element.email,
-          'Genero ': element.gender,
-          'Celular ': element.phone,
-          "Nivel de Educacción": element.nivel_educacion,
-          'Título ': element.titulo,
-          "Docente o Estudiante": element.student_teacher,
-          'Carrera ': element.name_carrer,
-          "Linea de Investigación ": element.linea_investigacion,
-          "Número de horas de dedicación semanal": element.nroHorasDedicacionSemanal,
-          'Orcid ': element.orcid,
-        })
-   }   
-   res.status(200).json(exports);
-  }  catch (error) {
+      exports.push({
+        Cédula: element.dni,
+        "Nombres ": element.names,
+        "Correo ": element.email,
+        "Genero ": element.gender,
+        "Celular ": element.phone,
+        "Nivel de Educacción": element.nivel_educacion,
+        "Título ": element.titulo,
+        "Docente o Estudiante": element.student_teacher,
+        "Carrera ": element.name_carrer,
+        "Linea de Investigación ": element.linea_investigacion,
+        "Número de horas de dedicación semanal":
+          element.nroHorasDedicacionSemanal,
+        "Orcid ": element.orcid,
+      });
+    }
+    res.status(200).json(exports);
+  } catch (error) {
     return false;
   }
- 
 };
 
 module.exports = {

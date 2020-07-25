@@ -1,20 +1,12 @@
 const project = require('../Models/model_projectInvestigation');
 const article = require('../Models/model_articulos');
 const saveProject = async (req, res) => {
-    const {
-        name, personal_involucrado, fecha_inicio, fecha_fin, linea_investigacion,
-        introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-        articulos_generados, estado_proyecto, id_group
-    } = req.body
-
     try {
-        const save = await new project({
-            name, personal_involucrado, fecha_inicio, fecha_fin, linea_investigacion,
-            introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-            articulos_generados, estado_proyecto, id_group
-        });
-        save.save();
-        res.status(200).json({ mensaje: "guardado" });
+        const save = await new project(req.body);
+        const is_saved = await save.save();
+        is_saved !=null ? 
+            res.status(200).json({ mensaje: "guardado" })
+        :   res.status(200).json({ mensaje: "no_guardado" })
     } catch (err) {
         console.error(err)
     }
@@ -53,17 +45,8 @@ const searchOneProject = async (req, res) => {
 
 }
 const updateProyect = async (req, res) => {
-    const { name, personal_involucrado, id_group, fecha_inicio, fecha_fin, linea_investigacion,
-        introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-        articulos_generados, estado_proyecto } = req.body
-
-
     const update = await project.updateOne({ _id: req.body._id }, {
-        $set: {
-            name, personal_involucrado, id_group, fecha_inicio, fecha_fin, linea_investigacion,
-            introduccion, justificacion, objetivos, materiales, resultados_esperados, presupuesto, cronograma,
-            articulos_generados, estado_proyecto
-        }
+        $set: req.body
     })
     res.status(200).json(update);
 }

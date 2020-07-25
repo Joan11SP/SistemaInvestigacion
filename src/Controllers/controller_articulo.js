@@ -4,17 +4,12 @@ const auth = require('../apiGoogleDrive/configDriveApi');
 const { google } = require('googleapis');
 
 const saveArticulo = async (req, res) => {
-    const {
-        name, id_project, personas, fecha_aceptacion, fecha_publicacion, tipo_document, indice,
-        anio, idioma, pais, doi, issn, sjr, isbn, link, revista, quartile
-    } = req.body
-
-    const save = await new articulo({
-        name, id_project, personas, fecha_aceptacion, fecha_publicacion, tipo_document, indice,
-        anio, idioma, pais, doi, issn, sjr, isbn, link, revista, quartile
-    });
-    save.save();
-    res.status(200).json({ mensaje: 1 });
+    
+    const save = await new articulo(req.body);
+    const is_saved = await save.save();
+    is_saved != null ?
+      res.status(200).json({ mensaje: 1 })
+      : res.status(200).json({ mensaje: 0 })
 }
 
 const allArticles = async (req, res) => {
@@ -42,17 +37,10 @@ const allArticles = async (req, res) => {
 }
 
 const updateArticles = async (req, res) => {
-    const { 
-        name, id_project, personas, fecha_aceptacion, fecha_publicacion, tipo_document, indice,
-        anio, idioma, pais, doi, issn, sjr, isbn, link, revista, quartile
-    } = req.body
-
+    
     const update = await articulo.updateOne({ _id: req.body._id },
         {
-            $set: {
-                name, id_project, personas, fecha_aceptacion, fecha_publicacion, tipo_document, indice,
-                anio, idioma, pais, doi, issn, sjr, isbn, link, revista, quartile
-            }
+            $set: req.body
         });
     res.status(200).json(update);
 }
